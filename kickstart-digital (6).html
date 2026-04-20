@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kickstart Digital — Grow Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0c0c0e;
+  --paper: #f7f5f0;
+  --cream: #edeae2;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-pale: #f5edda;
+  --muted: #7a7567;
+  --border: rgba(201,168,76,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--ink);color:var(--paper);overflow-x:hidden;cursor:none;}
+
+.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,width .3s,height .3s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease,width .3s,height .3s;opacity:.45;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 5rem;transition:.4s;}
+nav.scrolled{background:rgba(12,12,14,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 5rem;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--paper);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.45);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{color:var(--ink)!important;background:var(--gold);padding:.6rem 1.5rem;border-radius:4px;transition:background .2s!important;}
+.nav-cta:hover{background:var(--gold-light)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--paper);transition:.3s;}
+
+#home{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 5rem 5rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;z-index:0;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);top:-150px;right:-150px;pointer-events:none;}
+.hero-vline{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);z-index:0;}
+.hero-left{position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.75rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;animation:fadeUp .6s ease both;}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.75rem;animation:fadeUp .7s .1s ease both;}
+h1 em{font-style:italic;color:var(--gold);display:block;}
+.hero-sub{font-size:1rem;color:rgba(247,245,240,.5);line-height:1.85;max-width:420px;font-weight:300;margin-bottom:2.5rem;animation:fadeUp .7s .2s ease both;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.btn-gold{background:var(--gold);color:var(--ink);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;text-decoration:none;border:none;cursor:none;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--paper);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;text-decoration:none;border:1px solid rgba(247,245,240,.18);transition:border-color .2s,color .2s;cursor:none;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-right{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:1.5rem;animation:fadeUp .8s .35s ease both;}
+.stat-card{background:rgba(247,245,240,.04);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;width:210px;backdrop-filter:blur(10px);}
+.stat-card .num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--gold);letter-spacing:-0.03em;line-height:1;margin-bottom:.3rem;}
+.stat-card .lbl{font-size:.72rem;color:rgba(247,245,240,.35);text-transform:uppercase;letter-spacing:.1em;}
+.badge-card{background:var(--gold);border-radius:12px;padding:1.25rem 1.75rem;width:210px;}
+.badge-card p{font-size:.8rem;font-weight:700;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;line-height:1.5;}
+.badge-card span{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--ink);display:block;margin-bottom:.2rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+.marquee-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.1rem 0;overflow:hidden;background:rgba(201,168,76,.04);}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 22s linear infinite;}
+.marquee-item{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap;display:flex;align-items:center;gap:1.5rem;}
+.marquee-item::after{content:'◆';font-size:.4rem;color:rgba(201,168,76,.35);}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:8rem 5rem;}
+.sec-label{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+.sec-label::before{content:'';width:30px;height:1px;background:var(--gold);}
+h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1rem;}
+
+/* SERVICES */
+#services{background:var(--ink);}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;gap:2rem;flex-wrap:wrap;}
+.svc-top p{font-size:.95rem;color:rgba(247,245,240,.4);max-width:380px;line-height:1.85;font-weight:300;}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.tier{padding:3rem 2.5rem;display:flex;flex-direction:column;position:relative;transition:background .3s;}
+.tier-launch{background:#111113;}
+.tier-grow{background:#0f0f11;}
+.tier-dominate{background:#0d0d0f;}
+.tier:hover{background:rgba(201,168,76,.05);}
+.tier-n{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(201,168,76,.07);letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:.5rem;}
+.tier-tag{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;}
+.tier-launch .tier-tag{color:rgba(247,245,240,.28);}
+.tier-grow .tier-tag,.tier-dominate .tier-tag{color:var(--gold);}
+.tier-name{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;}
+.tier-price{margin-bottom:.5rem;}
+.tier-price .starting{font-size:.65rem;color:rgba(247,245,240,.28);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.2rem;}
+.price-row{display:flex;align-items:baseline;gap:.4rem;}
+.price-row .amt{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--gold);letter-spacing:-0.03em;}
+.price-row .per{font-size:.8rem;color:rgba(247,245,240,.3);font-weight:300;}
+.tier-desc{font-size:.875rem;color:rgba(247,245,240,.38);line-height:1.75;font-weight:300;margin:1.25rem 0 1.5rem;flex:1;}
+.tier-divider{height:1px;background:var(--border);margin-bottom:1.75rem;}
+.tier-feats{list-style:none;margin-bottom:2.5rem;}
+.tier-feats li{display:flex;align-items:flex-start;gap:.75rem;font-size:.85rem;padding:.6rem 0;border-bottom:1px solid rgba(201,168,76,.06);color:rgba(247,245,240,.68);font-weight:400;}
+.tier-feats li:last-child{border-bottom:none;}
+.fcheck{width:17px;height:17px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.55rem;}
+.tier-launch .fcheck{background:rgba(247,245,240,.1);color:rgba(247,245,240,.45);}
+.tier-grow .fcheck{background:rgba(201,168,76,.2);color:var(--gold);}
+.tier-dominate .fcheck{background:var(--gold);color:var(--ink);}
+.tier-btn{display:block;text-align:center;padding:.95rem;border-radius:6px;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:.2s;border:none;font-family:'Outfit',sans-serif;}
+.tier-launch .tier-btn{border:1px solid rgba(247,245,240,.14);color:rgba(247,245,240,.5);}
+.tier-launch .tier-btn:hover{border-color:var(--gold);color:var(--gold);}
+.tier-grow .tier-btn{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid var(--border);}
+.tier-grow .tier-btn:hover{background:rgba(201,168,76,.25);}
+.tier-dominate .tier-btn{background:var(--gold);color:var(--ink);}
+.tier-dominate .tier-btn:hover{background:var(--gold-light);}
+.hot-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .8rem;border-radius:100px;}
+
+/* ABOUT */
+#about{background:var(--paper);color:var(--ink);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;}
+.about-img-col{position:relative;}
+.about-frame{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/4;}
+.about-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(12,12,14,.5) 100%);}
+.about-frame img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;}
+.corner-tr{position:absolute;top:-1.5rem;right:-1.5rem;width:72px;height:72px;border-top:2px solid var(--gold);border-right:2px solid var(--gold);border-radius:0 8px 0 0;}
+.corner-bl{position:absolute;bottom:-1.5rem;left:-1.5rem;width:72px;height:72px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold);border-radius:0 0 0 8px;}
+.about-chip{position:absolute;bottom:2rem;right:-2rem;z-index:2;background:var(--ink);color:var(--paper);padding:1.25rem 1.5rem;border-radius:10px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.about-chip strong{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);display:block;margin-bottom:.25rem;}
+.about-chip span{font-size:.75rem;color:rgba(247,245,240,.45);letter-spacing:.05em;line-height:1.5;}
+.about-text .sec-label{color:var(--gold);}
+.about-text .sec-label::before{background:var(--gold);}
+.about-text h2{color:var(--ink);}
+.about-text p{font-size:.975rem;color:#5c5850;line-height:1.9;margin-bottom:1.25rem;font-weight:300;}
+.about-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.75rem 0;}
+.pill{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.45rem 1rem;border-radius:100px;border:1px solid rgba(201,168,76,.4);color:#7a6535;background:var(--gold-pale);}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem;}
+.val{background:var(--cream);border-radius:10px;padding:1.25rem;border:1px solid rgba(201,168,76,.15);}
+.val-icon{font-size:1.3rem;margin-bottom:.5rem;}
+.val h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;}
+.val p{font-size:.8rem;color:#7a7567;line-height:1.55;}
+
+/* PROCESS */
+#process{background:var(--ink);}
+.proc-top{margin-bottom:4rem;}
+.proc-top p{font-size:.95rem;color:rgba(247,245,240,.38);max-width:400px;line-height:1.85;font-weight:300;margin-top:.75rem;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.step{background:#111113;padding:2.5rem 2rem;transition:background .3s;position:relative;}
+.step:hover{background:rgba(201,168,76,.06);}
+.step:not(:last-child)::after{content:'→';position:absolute;top:2.5rem;right:-10px;color:var(--gold);font-size:.9rem;z-index:2;}
+.step-n{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:rgba(201,168,76,.09);letter-spacing:-0.04em;display:block;line-height:1;margin-bottom:1.25rem;}
+.step-ico{font-size:1.5rem;margin-bottom:.75rem;}
+.step h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--paper);margin-bottom:.5rem;}
+.step p{font-size:.825rem;color:rgba(247,245,240,.36);line-height:1.65;font-weight:300;}
+
+/* CONTACT */
+#contact{background:var(--paper);color:var(--ink);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;}
+.contact-left .sec-label{color:var(--gold);}
+.contact-left .sec-label::before{background:var(--gold);}
+.contact-left h2{color:var(--ink);}
+.contact-left>p{font-size:.975rem;color:#5c5850;line-height:1.9;font-weight:300;margin:1rem 0 2.5rem;}
+.c-cards{display:flex;flex-direction:column;gap:.75rem;}
+.c-card{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;background:var(--cream);border-radius:10px;border:1px solid rgba(201,168,76,.2);text-decoration:none;color:var(--ink);transition:border-color .2s,background .2s;}
+.c-card:hover{border-color:var(--gold);background:var(--gold-pale);}
+.c-ico{width:42px;height:42px;border-radius:8px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.c-card strong{display:block;font-size:.875rem;font-weight:600;margin-bottom:.15rem;}
+.c-card span{font-size:.8rem;color:#7a7567;}
+.cform{display:flex;flex-direction:column;gap:1.25rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.field{display:flex;flex-direction:column;gap:.4rem;}
+.field label{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7a7567;}
+.field input,.field select,.field textarea{font-family:'Outfit',sans-serif;font-size:.9rem;padding:.9rem 1.1rem;border:1px solid rgba(201,168,76,.25);border-radius:8px;background:var(--cream);color:var(--ink);outline:none;transition:border-color .2s,background .2s;resize:none;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);background:#fff;}
+.field textarea{min-height:130px;}
+.f-btn{background:var(--ink);color:var(--gold);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1.1rem 2rem;border-radius:8px;border:none;cursor:none;transition:transform .2s,box-shadow .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.f-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.12);}
+
+footer{background:#07070a;border-top:1px solid var(--border);padding:3rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--paper);text-decoration:none;}
+.f-logo span{color:var(--gold);}
+.f-links{display:flex;gap:2rem;list-style:none;}
+.f-links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,245,240,.28);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--gold);}
+footer small{font-size:.72rem;color:rgba(247,245,240,.18);}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem;}nav.scrolled{padding:.9rem 1.5rem;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#0c0c0e;padding:1.5rem;border-bottom:1px solid var(--border);gap:1.25rem;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  #home{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;gap:3rem;}
+  .hero-right{align-items:flex-start;flex-direction:row;flex-wrap:wrap;}
+  .stat-card,.badge-card{width:auto;flex:1;min-width:150px;}
+  .hero-vline{display:none;}
+  section{padding:5rem 1.5rem;}
+  .tiers{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .about-img-col{display:none;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .step::after{display:none!important;}
+  .contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .frow{grid-template-columns:1fr;}
+  .svc-top{flex-direction:column;align-items:flex-start;}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Kickstart<span>.</span>Digital</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<section id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-vline"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Now accepting clients — Mobile, AL</div>
+    <h1>Your business.<br><em>Elevated.</em></h1>
+    <p class="hero-sub">Kickstart Digital gives small businesses in Mobile and beyond the digital presence they deserve — from a clean website to full brand domination.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-gold">View Plans →</a>
+      <a href="#contact" class="btn-outline">Free Consultation</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="lbl">Service Tiers</div>
+    </div>
+    <div class="badge-card">
+      <span>Local</span>
+      <p>Based in Mobile, AL — serving businesses everywhere</p>
+    </div>
+    <div class="stat-card">
+      <div class="num">Fast</div>
+      <div class="lbl">Turnaround</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Website Design</span><span class="marquee-item">Google SEO</span><span class="marquee-item">Brand Refresh</span><span class="marquee-item">Logo Design</span><span class="marquee-item">Custom AI Tools</span><span class="marquee-item">Strategy & Growth</span><span class="marquee-item">Business Cards</span><span class="marquee-item">Digital Marketing</span><span class="marquee-item">Website Design</span><span class="marquee-item">Google SEO</span><span class="marquee-item">Brand Refresh</span><span class="marquee-item">Logo Design</span><span class="marquee-item">Custom AI Tools</span><span class="marquee-item">Strategy & Growth</span><span class="marquee-item">Business Cards</span><span class="marquee-item">Digital Marketing</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="svc-top reveal">
+    <div>
+      <div class="sec-label">Services</div>
+      <h2>Three tiers.<br>One goal.</h2>
+    </div>
+    <p>Pick the package that fits where your business is right now. You can always level up — and I'll be with you every step of the way.</p>
+  </div>
+  <div class="tiers reveal">
+
+    <div class="tier tier-launch">
+      <span class="tier-n">01</span>
+      <div class="tier-tag">Tier One</div>
+      <div class="tier-name">Launch</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$750</span><span class="per">one-time</span></div>
+      </div>
+      <p class="tier-desc">Get your business online with a professional, conversion-focused website built from scratch — fast, mobile-ready, and built to impress.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Custom website design</li>
+        <li><span class="fcheck">✓</span>Mobile-responsive layout</li>
+        <li><span class="fcheck">✓</span>Contact form integration</li>
+        <li><span class="fcheck">✓</span>Domain & hosting setup</li>
+        <li><span class="fcheck">✓</span>Basic on-page SEO</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+    <div class="tier tier-grow">
+      <span class="tier-n">02</span>
+      <div class="tier-tag">Tier Two — Most Popular</div>
+      <div class="tier-name">Grow</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$1,500</span><span class="per">+ $300/mo SEO</span></div>
+      </div>
+      <p class="tier-desc">Everything in Launch, plus ongoing Google SEO management so new customers can actually find you when they search.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Everything in Launch</li>
+        <li><span class="fcheck">✓</span>Google SEO management</li>
+        <li><span class="fcheck">✓</span>Google Business Profile setup</li>
+        <li><span class="fcheck">✓</span>Keyword research & targeting</li>
+        <li><span class="fcheck">✓</span>Monthly performance reports</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+    <div class="tier tier-dominate">
+      <div class="hot-badge">Premium</div>
+      <span class="tier-n">03</span>
+      <div class="tier-tag">Tier Three</div>
+      <div class="tier-name">Dominate</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$3,000</span><span class="per">+ $300/mo SEO</span></div>
+      </div>
+      <p class="tier-desc">The complete package. Website, SEO, full brand refresh, a custom AI tool built for your business, and hands-on strategic support.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Everything in Grow</li>
+        <li><span class="fcheck">✓</span>Logo redesign or refresh</li>
+        <li><span class="fcheck">✓</span>Business card design</li>
+        <li><span class="fcheck">✓</span>Custom AI tool for your business</li>
+        <li><span class="fcheck">✓</span>1-on-1 strategy sessions</li>
+        <li><span class="fcheck">✓</span>Priority support & ongoing help</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-col reveal">
+      <div class="corner-tr"></div>
+      <div class="corner-bl"></div>
+      <div class="about-frame">
+        <img src="eli.png.PNG" alt="Eli Kick — Founder, Kickstart Digital">
+      </div>
+      <div class="about-chip">
+        <strong>✈️ ROTC</strong>
+        <span>Air Force Cadet<br>Univ. of South Alabama</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="sec-label">About</div>
+      <h2>Discipline meets digital.</h2>
+      <p>I'm Eli Kick — a University of South Alabama student, Air Force ROTC cadet, and founder of Kickstart Digital right here in Mobile, Alabama.</p>
+      <p>I built this company because I kept watching great local businesses get buried online while big corporations dominated every search result. That's a problem I can fix — and I take it personally.</p>
+      <p>The same commitment and work ethic I bring to ROTC is what I bring to every client. When you work with Kickstart Digital, you get me — focused, invested, and driven to deliver results.</p>
+      <div class="about-pills">
+        <span class="pill">Univ. of South Alabama</span>
+        <span class="pill">Air Force ROTC</span>
+        <span class="pill">Mobile, Alabama</span>
+        <span class="pill">Small Business Advocate</span>
+      </div>
+      <div class="values">
+        <div class="val"><div class="val-icon">🎯</div><h4>Mission-Driven</h4><p>Every project has a clear objective. I don't stop until we hit it.</p></div>
+        <div class="val"><div class="val-icon">⚡</div><h4>Fast Execution</h4><p>No months of waiting. We move with urgency and purpose.</p></div>
+        <div class="val"><div class="val-icon">🤝</div><h4>Direct Access</h4><p>You work with me directly — not an intern or a call center.</p></div>
+        <div class="val"><div class="val-icon">📈</div><h4>Real Results</h4><p>We track everything so you see exactly what you're getting.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="proc-top reveal">
+    <div class="sec-label">How It Works</div>
+    <h2>Simple process.<br>Serious results.</h2>
+    <p>From your first call to a live, growing online presence — here's exactly how we get there.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><span class="step-n">01</span><div class="step-ico">💬</div><h3>Discovery Call</h3><p>We talk about your business, goals, and which tier makes the most sense for where you are right now.</p></div>
+    <div class="step"><span class="step-n">02</span><div class="step-ico">🗺️</div><h3>Strategy & Plan</h3><p>I build a clear roadmap — what we'll create, what we'll target, and what winning looks like for your business.</p></div>
+    <div class="step"><span class="step-n">03</span><div class="step-ico">🛠️</div><h3>Build & Launch</h3><p>We execute fast — website built, SEO configured, everything live and performing from day one.</p></div>
+    <div class="step"><span class="step-n">04</span><div class="step-ico">🚀</div><h3>Grow & Win</h3><p>Ongoing monitoring, optimization, and support to keep pushing your business higher every month.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <div class="sec-label">Contact</div>
+      <h2>Ready to kick things off?</h2>
+      <p>Fill out the form and I'll get back to you within 24 hours to schedule your free discovery call. No pressure, no sales pitch — just a real conversation about your business.</p>
+      <div class="c-cards">
+        <a href="mailto:kickstartdigitalbusiness@gmail.com" class="c-card">
+          <div class="c-ico">📧</div>
+          <div><strong>Email</strong><span>kickstartdigitalbusiness@gmail.com</span></div>
+        </a>
+        <a href="tel:+12055800871" class="c-card">
+          <div class="c-ico">📞</div>
+          <div><strong>Phone</strong><span>(205) 580-0871</span></div>
+        </a>
+      </div>
+    </div>
+    <form class="cform reveal" onsubmit="handleSubmit(event)">
+      <div class="frow">
+        <div class="field"><label>First Name</label><input type="text" placeholder="Jane" required></div>
+        <div class="field"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
+      </div>
+      <div class="field"><label>Email Address</label><input type="email" placeholder="jane@yourbusiness.com" required></div>
+      <div class="field"><label>Business Name</label><input type="text" placeholder="Your Business Name"></div>
+      <div class="field">
+        <label>Which tier interests you?</label>
+        <select>
+          <option value="">Select a tier...</option>
+          <option>🚀 Launch — Website Build ($750)</option>
+          <option>📈 Grow — Website + SEO ($1,500)</option>
+          <option>👑 Dominate — Full Package ($3,000)</option>
+          <option>Not sure yet — let's talk</option>
+        </select>
+      </div>
+      <div class="field"><label>Tell me about your business</label><textarea placeholder="What do you do, who are your customers, and what's your biggest challenge right now?"></textarea></div>
+      <button type="submit" class="f-btn">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#home" class="f-logo">Kickstart<span>.</span>Digital</a>
+  <ul class="f-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <small>© 2026 Kickstart Digital — Mobile, AL. All rights reserved.</small>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.2)';ring.style.opacity='0.7';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='0.45';});
+});
+
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
+
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-btn');
+  btn.textContent="✓ Sent! I'll be in touch within 24 hours.";
+  btn.style.background='#0f2e0f';btn.style.color='#7ecf7e';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';btn.style.color='';e.target.reset();},4000);
+}
+</script>
+</body>
+</html>
