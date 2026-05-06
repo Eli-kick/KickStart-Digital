@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kickstart Digital — Professional Websites for Local Service Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0c0c0e;
+  --paper: #f7f5f0;
+  --cream: #edeae2;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-pale: #f5edda;
+  --muted: #7a7567;
+  --border: rgba(201,168,76,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--ink);color:var(--paper);overflow-x:hidden;cursor:none;}
+
+.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease;opacity:.45;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 5rem;transition:.4s;}
+nav.scrolled{background:rgba(12,12,14,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 5rem;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--paper);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-logo span{color:var(--gold);}
+.nav-logo svg{width:20px;height:20px;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.45);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{color:var(--ink)!important;background:var(--gold);padding:.6rem 1.5rem;border-radius:4px;}
+.nav-cta:hover{background:var(--gold-light)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--paper);}
+
+/* HERO */
+#home{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:8rem 5rem 5rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;z-index:0;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.14) 0%,transparent 70%);top:-150px;right:-150px;pointer-events:none;}
+.hero-vline{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border);z-index:0;}
+.hero-left{position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.75rem;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;animation:fadeUp .6s ease both;}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;animation:fadeUp .7s .1s ease both;}
+h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:1rem;color:rgba(247,245,240,.55);line-height:1.85;max-width:500px;font-weight:300;margin-bottom:2rem;animation:fadeUp .7s .2s ease both;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;animation:fadeUp .7s .3s ease both;}
+.btn-gold{background:var(--gold);color:var(--ink);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;text-decoration:none;border:none;cursor:none;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--paper);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 2.2rem;border-radius:4px;text-decoration:none;border:1px solid rgba(247,245,240,.18);transition:border-color .2s,color .2s;cursor:none;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.proof-bar{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;animation:fadeUp .7s .4s ease both;}
+.proof-item{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(247,245,240,.45);display:flex;align-items:center;gap:.4rem;}
+.proof-item::before{content:'✓';color:var(--gold);}
+.hero-right{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:1.5rem;animation:fadeUp .8s .35s ease both;}
+.stat-card{background:rgba(247,245,240,.04);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;width:210px;backdrop-filter:blur(10px);}
+.stat-card .num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--gold);letter-spacing:-0.03em;line-height:1;margin-bottom:.3rem;}
+.stat-card .lbl{font-size:.72rem;color:rgba(247,245,240,.35);text-transform:uppercase;letter-spacing:.1em;}
+.badge-card{background:var(--gold);border-radius:12px;padding:1.25rem 1.75rem;width:210px;}
+.badge-card p{font-size:.8rem;font-weight:700;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;line-height:1.5;}
+.badge-card span{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--ink);display:block;margin-bottom:.2rem;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* MARQUEE */
+.marquee-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.1rem 0;overflow:hidden;background:rgba(201,168,76,.04);}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 22s linear infinite;}
+.marquee-item{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap;display:flex;align-items:center;gap:1.5rem;}
+.marquee-item::after{content:'◆';font-size:.4rem;color:rgba(201,168,76,.35);}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SHARED */
+section{padding:8rem 5rem;}
+.sec-label{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;}
+.sec-label::before{content:'';width:30px;height:1px;background:var(--gold);}
+h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1rem;}
+
+/* PROBLEM SECTION */
+#problem{background:var(--paper);color:var(--ink);}
+#problem .sec-label{color:var(--gold);}
+#problem .sec-label::before{background:var(--gold);}
+#problem h2{color:var(--ink);}
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.problem-text p{font-size:1rem;color:#5c5850;line-height:1.9;margin-bottom:1.25rem;font-weight:300;}
+.problem-cards{display:flex;flex-direction:column;gap:1rem;}
+.problem-card{background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.problem-icon{font-size:1.5rem;flex-shrink:0;}
+.problem-card h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;}
+.problem-card p{font-size:.825rem;color:#7a7567;line-height:1.6;}
+
+/* SERVICES */
+#services{background:var(--ink);}
+.svc-top{margin-bottom:4rem;}
+.svc-top p{font-size:.95rem;color:rgba(247,245,240,.4);max-width:500px;line-height:1.85;font-weight:300;margin-top:.75rem;}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.tier{padding:3rem 2.5rem;display:flex;flex-direction:column;position:relative;transition:background .3s;}
+.tier-launch{background:#111113;}
+.tier-growth{background:#0f0f11;}
+.tier-authority{background:#0a0a0c;}
+.tier:hover{background:rgba(201,168,76,.05);}
+.tier-n{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(201,168,76,.07);letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:.5rem;}
+.tier-tag{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;}
+.tier-launch .tier-tag{color:rgba(247,245,240,.28);}
+.tier-growth .tier-tag,.tier-authority .tier-tag{color:var(--gold);}
+.tier-name{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:.5rem;}
+.tier-price{margin-bottom:.75rem;}
+.tier-price .starting{font-size:.65rem;color:rgba(247,245,240,.28);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.2rem;}
+.price-row{display:flex;align-items:baseline;gap:.4rem;}
+.price-row .amt{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--gold);letter-spacing:-0.03em;}
+.price-row .per{font-size:.8rem;color:rgba(247,245,240,.3);font-weight:300;}
+.tier-outcome{font-size:.8rem;font-weight:600;color:var(--gold);margin:.75rem 0 .5rem;letter-spacing:.02em;font-style:italic;}
+.tier-desc{font-size:.875rem;color:rgba(247,245,240,.42);line-height:1.75;font-weight:300;margin-bottom:1.5rem;flex:1;}
+.tier-divider{height:1px;background:var(--border);margin-bottom:1.75rem;}
+.tier-feats{list-style:none;margin-bottom:2.5rem;}
+.tier-feats li{display:flex;align-items:flex-start;gap:.75rem;font-size:.85rem;padding:.6rem 0;border-bottom:1px solid rgba(201,168,76,.06);color:rgba(247,245,240,.68);font-weight:400;}
+.tier-feats li:last-child{border-bottom:none;}
+.fcheck{width:17px;height:17px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.55rem;}
+.tier-launch .fcheck{background:rgba(247,245,240,.1);color:rgba(247,245,240,.45);}
+.tier-growth .fcheck{background:rgba(201,168,76,.2);color:var(--gold);}
+.tier-authority .fcheck{background:var(--gold);color:var(--ink);}
+.tier-btn{display:block;text-align:center;padding:.95rem;border-radius:6px;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:none;transition:.2s;border:none;font-family:'Outfit',sans-serif;}
+.tier-launch .tier-btn{border:1px solid rgba(247,245,240,.14);color:rgba(247,245,240,.5);}
+.tier-launch .tier-btn:hover{border-color:var(--gold);color:var(--gold);}
+.tier-growth .tier-btn{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid var(--border);}
+.tier-growth .tier-btn:hover{background:rgba(201,168,76,.25);}
+.tier-authority .tier-btn{background:var(--gold);color:var(--ink);}
+.tier-authority .tier-btn:hover{background:var(--gold-light);}
+.hot-badge{position:absolute;top:1.5rem;right:1.5rem;background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .8rem;border-radius:100px;}
+
+/* PHOTOGRAPHY CALLOUT */
+.photo-callout{background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:14px;padding:2.5rem;margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.photo-callout h3{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--paper);margin-bottom:.75rem;line-height:1.2;}
+.photo-callout p{font-size:.9rem;color:rgba(247,245,240,.45);line-height:1.8;font-weight:300;}
+.photo-examples{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+.photo-example{background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:8px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;font-size:1.4rem;}
+.photo-example span{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(201,168,76,.6);}
+
+/* ADD-ONS */
+.addons{margin-top:3rem;}
+.addons h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--paper);margin-bottom:1.5rem;}
+.addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+.addon{background:rgba(247,245,240,.03);border:1px solid var(--border);border-radius:10px;padding:1.25rem;transition:background .2s;}
+.addon:hover{background:rgba(201,168,76,.06);}
+.addon-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--gold);margin-bottom:.3rem;}
+.addon-name{font-size:.8rem;font-weight:600;color:var(--paper);margin-bottom:.3rem;}
+.addon-desc{font-size:.72rem;color:rgba(247,245,240,.35);line-height:1.5;}
+
+/* PROCESS */
+#process{background:var(--ink);}
+#process .sec-label{color:var(--gold);}
+#process .sec-label::before{background:var(--gold);}
+#process h2{color:var(--paper);}
+.proc-top{margin-bottom:4rem;}
+.proc-top p{font-size:.95rem;color:rgba(247,245,240,.38);max-width:400px;line-height:1.85;font-weight:300;margin-top:.75rem;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.step{background:#111113;padding:2.5rem 2rem;transition:background .3s;position:relative;}
+.step:hover{background:rgba(201,168,76,.06);}
+.step:not(:last-child)::after{content:'→';position:absolute;top:2.5rem;right:-10px;color:var(--gold);font-size:.9rem;z-index:2;}
+.step-n{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:rgba(201,168,76,.09);letter-spacing:-0.04em;display:block;line-height:1;margin-bottom:1.25rem;}
+.step-ico{font-size:1.5rem;margin-bottom:.75rem;}
+.step h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--paper);margin-bottom:.5rem;}
+.step p{font-size:.825rem;color:rgba(247,245,240,.36);line-height:1.65;font-weight:300;}
+
+/* ABOUT */
+#about{background:var(--ink);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center;}
+.about-img-col{position:relative;}
+.about-frame{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/4;}
+.about-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(12,12,14,.5) 100%);}
+.about-frame img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;}
+.corner-tr{position:absolute;top:-1.5rem;right:-1.5rem;width:72px;height:72px;border-top:2px solid var(--gold);border-right:2px solid var(--gold);border-radius:0 8px 0 0;}
+.corner-bl{position:absolute;bottom:-1.5rem;left:-1.5rem;width:72px;height:72px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold);border-radius:0 0 0 8px;}
+.about-chip{position:absolute;bottom:2rem;right:-2rem;z-index:2;background:var(--paper);color:var(--ink);padding:1.25rem 1.5rem;border-radius:10px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.about-chip strong{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);display:block;margin-bottom:.25rem;}
+.about-chip span{font-size:.75rem;color:#7a7567;letter-spacing:.05em;line-height:1.5;}
+.about-text p{font-size:.975rem;color:rgba(247,245,240,.5);line-height:1.9;margin-bottom:1.25rem;font-weight:300;}
+.about-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.75rem 0;}
+.pill{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.45rem 1rem;border-radius:100px;border:1px solid var(--border);color:rgba(201,168,76,.7);background:rgba(201,168,76,.08);}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem;}
+.val{background:rgba(247,245,240,.03);border-radius:10px;padding:1.25rem;border:1px solid var(--border);}
+.val-icon{font-size:1.3rem;margin-bottom:.5rem;}
+.val h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--paper);margin-bottom:.3rem;}
+.val p{font-size:.8rem;color:rgba(247,245,240,.35);line-height:1.55;}
+
+/* FAQ */
+#faq{background:var(--paper);color:var(--ink);}
+#faq .sec-label{color:var(--gold);}
+#faq .sec-label::before{background:var(--gold);}
+#faq h2{color:var(--ink);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.15);border-radius:16px;overflow:hidden;margin-top:3rem;}
+.faq-item{background:var(--cream);padding:2rem 2.5rem;transition:background .2s;}
+.faq-item:hover{background:var(--gold-pale);}
+.faq-q{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.75rem;}
+.faq-a{font-size:.875rem;color:#7a7567;line-height:1.75;font-weight:300;}
+
+/* CONTACT */
+#contact{background:var(--ink);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;}
+.contact-left p{font-size:.975rem;color:rgba(247,245,240,.45);line-height:1.9;font-weight:300;margin:1rem 0 2.5rem;}
+.c-cards{display:flex;flex-direction:column;gap:.75rem;}
+.c-card{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;background:rgba(247,245,240,.04);border-radius:10px;border:1px solid var(--border);text-decoration:none;color:var(--paper);transition:border-color .2s;}
+.c-card:hover{border-color:var(--gold);}
+.c-ico{width:42px;height:42px;border-radius:8px;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.c-card strong{display:block;font-size:.875rem;font-weight:600;margin-bottom:.15rem;}
+.c-card span{font-size:.8rem;color:rgba(247,245,240,.4);}
+.guarantee-box{background:rgba(201,168,76,.08);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-top:1.25rem;display:flex;gap:.75rem;align-items:flex-start;}
+.guarantee-icon{font-size:1.25rem;flex-shrink:0;}
+.guarantee-text strong{display:block;font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:.25rem;}
+.guarantee-text p{font-size:.78rem;color:rgba(247,245,240,.4);line-height:1.55;}
+.cform{display:flex;flex-direction:column;gap:1.25rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.field{display:flex;flex-direction:column;gap:.4rem;}
+.field label{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.4);}
+.field input,.field select,.field textarea{font-family:'Outfit',sans-serif;font-size:.9rem;padding:.9rem 1.1rem;border:1px solid var(--border);border-radius:8px;background:rgba(247,245,240,.04);color:var(--paper);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);}
+.field select option{background:var(--ink);}
+.field textarea{min-height:130px;resize:none;}
+.f-btn{background:var(--gold);color:var(--ink);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1.1rem 2rem;border-radius:8px;border:none;cursor:none;transition:transform .2s,background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.f-btn:hover{transform:translateY(-2px);background:var(--gold-light);}
+
+footer{background:#07070a;border-top:1px solid var(--border);padding:3rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--paper);text-decoration:none;}
+.f-logo span{color:var(--gold);}
+.f-links{display:flex;gap:2rem;list-style:none;}
+.f-links a{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,245,240,.28);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--gold);}
+footer small{font-size:.72rem;color:rgba(247,245,240,.18);}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem;}
+  nav.scrolled{padding:.9rem 1.5rem;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#0c0c0e;padding:1.5rem;border-bottom:1px solid var(--border);gap:1.25rem;}
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  #home{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;gap:3rem;}
+  .hero-right{align-items:flex-start;flex-direction:row;flex-wrap:wrap;}
+  .stat-card,.badge-card{width:auto;flex:1;min-width:150px;}
+  .hero-vline{display:none;}
+  section{padding:5rem 1.5rem;}
+  h2{font-size:2rem;}
+  .tiers{grid-template-columns:1fr;}
+  .photo-callout{grid-template-columns:1fr;}
+  .addons-grid{grid-template-columns:1fr 1fr;}
+  .problem-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-img-col{display:none;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .step::after{display:none!important;}
+  .faq-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .frow{grid-template-columns:1fr;}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <rect x="6" y="92" width="16" height="20" fill="#c9a84c" opacity="0.20" rx="2"/>
+      <rect x="28" y="72" width="16" height="40" fill="#c9a84c" opacity="0.42" rx="2"/>
+      <rect x="50" y="52" width="16" height="60" fill="#c9a84c" opacity="0.68" rx="2"/>
+      <rect x="72" y="32" width="16" height="80" fill="#c9a84c" rx="2"/>
+      <line x1="5" y1="80" x2="79" y2="14" stroke="#c9a84c" stroke-width="6" stroke-linecap="round"/>
+      <polygon points="94,0 87,18 75,8" fill="#c9a84c"/>
+    </svg>
+    Kickstart<span>.</span>Digital
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Free Quote</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-vline"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Website Design for Local Service Businesses — Mobile, AL</div>
+    <h1>Your business<br>deserves a website<br><em>that actually<br>works.</em></h1>
+    <p class="hero-sub">Professional websites for local service businesses that want to look more established and turn more visitors into calls and quote requests — built fast, built right, and 100% yours when we're done.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold">Get a Free Quote →</a>
+      <a href="#services" class="btn-outline">View Packages</a>
+    </div>
+    <div class="proof-bar">
+      <span class="proof-item">Fast Turnaround</span>
+      <span class="proof-item">Mobile-Friendly Design</span>
+      <span class="proof-item">You Own Everything</span>
+      <span class="proof-item">Clear Process, No Lock-In</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="num">7</div>
+      <div class="lbl">Day Delivery</div>
+    </div>
+    <div class="badge-card">
+      <span>Local</span>
+      <p>Mobile, AL — built for Gulf Coast service businesses</p>
+    </div>
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="lbl">Packages</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item">Roofing Companies</span><span class="marquee-item">HVAC</span><span class="marquee-item">Landscapers</span><span class="marquee-item">Painters</span><span class="marquee-item">Remodelers</span><span class="marquee-item">Flooring</span><span class="marquee-item">Pressure Washing</span><span class="marquee-item">Countertops</span><span class="marquee-item">Cabinets</span><span class="marquee-item">Contractors</span><span class="marquee-item">Roofing Companies</span><span class="marquee-item">HVAC</span><span class="marquee-item">Landscapers</span><span class="marquee-item">Painters</span><span class="marquee-item">Remodelers</span><span class="marquee-item">Flooring</span><span class="marquee-item">Pressure Washing</span><span class="marquee-item">Countertops</span><span class="marquee-item">Cabinets</span><span class="marquee-item">Contractors</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-grid">
+    <div class="problem-text reveal">
+      <div class="sec-label">The Problem</div>
+      <h2>Your work is great.<br>Your website<br>doesn't show it.</h2>
+      <p>You've spent years building a reputation in your community. But when a potential customer Googles your name — or worse, they Google your competitor's name — what they find doesn't match the quality of your work.</p>
+      <p>We build websites that close the gap between the quality of your work and how your business looks online.</p>
+      <a href="#services" class="btn-gold" style="margin-top:1rem;display:inline-flex;">See the Packages →</a>
+    </div>
+    <div class="problem-cards reveal">
+      <div class="problem-card">
+        <div class="problem-icon">📱</div>
+        <div>
+          <h4>They Can't Find You</h4>
+          <p>If you don't have a website — or yours isn't mobile-friendly — customers searching on their phone move on to the next result immediately.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📸</div>
+        <div>
+          <h4>Your Photos Don't Do You Justice</h4>
+          <p>Blurry iPhone photos and stock images make even great work look amateur. Professional photos change how customers perceive your business instantly.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🤝</div>
+        <div>
+          <h4>They Don't Trust You Yet</h4>
+          <p>A professional website with real photos, reviews, and clear contact info builds the trust that gets people to pick up the phone and call you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-top reveal">
+    <div class="sec-label">Packages</div>
+    <h2>Three packages.<br>One goal: more calls,<br>more jobs, more revenue.</h2>
+    <p>Every package is built specifically for local service businesses. No templates, no bloat — just a professional website that helps you look established and makes it easy for customers to reach you.</p>
+  </div>
+
+  <div class="tiers reveal">
+
+    <!-- LAUNCH -->
+    <div class="tier tier-launch">
+      <span class="tier-n">01</span>
+      <div class="tier-tag">Entry Package</div>
+      <div class="tier-name">Launch Website</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$750</span><span class="per">one-time</span></div>
+      </div>
+      <div class="tier-outcome">Get online and look legitimate.</div>
+      <p class="tier-desc">For businesses that need a clean, professional website — either because they don't have one or their current one is embarrassing them. Everything you need to establish a credible online presence.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Up to 5 pages (Home, About, Services, Gallery, Contact)</li>
+        <li><span class="fcheck">✓</span>Mobile-friendly design</li>
+        <li><span class="fcheck">✓</span>Contact form + click-to-call button</li>
+        <li><span class="fcheck">✓</span>Domain connection + basic setup</li>
+        <li><span class="fcheck">✓</span>Search-friendly page structure</li>
+        <li><span class="fcheck">✓</span>Delivered in 7 days</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+    <!-- GROWTH -->
+    <div class="tier tier-growth">
+      <div class="hot-badge">Most Popular</div>
+      <span class="tier-n">02</span>
+      <div class="tier-tag">Best Value</div>
+      <div class="tier-name">Growth Website</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$1,500</span><span class="per">one-time</span></div>
+      </div>
+      <div class="tier-outcome">Turn visitors into calls and leads.</div>
+      <p class="tier-desc">A more strategic website built to convert visitors into actual inquiries. Better layout, stronger trust signals, and a structure designed to get people to contact you.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Everything in Launch Website</li>
+        <li><span class="fcheck">✓</span>Up to 8 pages + individual service pages</li>
+        <li><span class="fcheck">✓</span>Testimonials & reviews section</li>
+        <li><span class="fcheck">✓</span>FAQ section to answer buyer questions</li>
+        <li><span class="fcheck">✓</span>Stronger call-to-action layout throughout</li>
+        <li><span class="fcheck">✓</span>Analytics setup (see who visits your site)</li>
+        <li><span class="fcheck">✓</span>Foundational local SEO setup</li>
+        <li><span class="fcheck">✓</span>30 days of free tweaks after launch</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+    <!-- AUTHORITY -->
+    <div class="tier tier-authority">
+      <span class="tier-n">03</span>
+      <div class="tier-tag">Premium Package</div>
+      <div class="tier-name">Authority Website</div>
+      <div class="tier-price">
+        <span class="starting">Starting at</span>
+        <div class="price-row"><span class="amt">$3,000</span><span class="per">one-time</span></div>
+      </div>
+      <div class="tier-outcome">Look like the best company in your area.</div>
+      <p class="tier-desc">Everything in Growth — plus a 2–4 hour on-site content session where we come to your location and photograph your team, your work, and your space. Real visuals that make your website look as good as your actual work.</p>
+      <div class="tier-divider"></div>
+      <ul class="tier-feats">
+        <li><span class="fcheck">✓</span>Everything in Growth Website</li>
+        <li><span class="fcheck">✓</span>2–4 hour on-site content session at your location</li>
+        <li><span class="fcheck">✓</span>Professional business & team photography</li>
+        <li><span class="fcheck">✓</span>Location, storefront & workspace photos</li>
+        <li><span class="fcheck">✓</span>Before/after & project portfolio photos</li>
+        <li><span class="fcheck">✓</span>Short-form video clips for website use</li>
+        <li><span class="fcheck">✓</span>All content delivered ready for website use</li>
+        <li><span class="fcheck">✓</span>Google Business Profile optimization</li>
+        <li><span class="fcheck">✓</span>60 days of post-launch support</li>
+      </ul>
+      <a href="#contact" class="tier-btn">Get Started</a>
+    </div>
+
+  </div>
+
+  <!-- PHOTOGRAPHY CALLOUT -->
+  <div class="photo-callout reveal">
+    <div>
+      <h3>Why professional photos<br>change everything.</h3>
+      <p style="margin-top:.75rem;">Most local service businesses are using blurry iPhone photos or generic stock images on their website. It makes great work look amateur and gives customers a reason to click away. The Authority package includes a 2–4 hour on-site content session — we come to your location and spend that time shooting everything your website needs. Team photos, location shots, work photos, and short video clips. All delivered and ready to use.</p>
+      <p style="margin-top:.75rem;font-style:italic;color:rgba(201,168,76,.7);font-size:.85rem;">"Real visuals build trust faster than stock images ever will."</p>
+    </div>
+    <div class="photo-examples">
+      <div class="photo-example">👤<span>Headshots</span></div>
+      <div class="photo-example">🏠<span>Location</span></div>
+      <div class="photo-example">🔨<span>Work Photos</span></div>
+      <div class="photo-example">⭐<span>Before/After</span></div>
+      <div class="photo-example">🎬<span>Video Clips</span></div>
+      <div class="photo-example">📐<span>Detail Shots</span></div>
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div class="addons reveal">
+    <h3>Add-ons — Available with Any Package</h3>
+    <div class="addons-grid">
+      <div class="addon">
+        <div class="addon-price">$150/mo</div>
+        <div class="addon-name">Monthly Maintenance</div>
+        <div class="addon-desc">Updates, edits, and keeping your site running smoothly.</div>
+      </div>
+      <div class="addon">
+        <div class="addon-price">$250</div>
+        <div class="addon-name">Rush Delivery</div>
+        <div class="addon-desc">Need it faster? Get your site in 3 days instead of 7.</div>
+      </div>
+      <div class="addon">
+        <div class="addon-price">$150</div>
+        <div class="addon-name">Google Business Profile</div>
+        <div class="addon-desc">Full setup and optimization of your Google Maps listing.</div>
+      </div>
+      <div class="addon">
+        <div class="addon-price">$300</div>
+        <div class="addon-name">Logo Design</div>
+        <div class="addon-desc">A clean, professional logo to match your new website.</div>
+      </div>
+      <div class="addon">
+        <div class="addon-price">$150</div>
+        <div class="addon-name">Business Card Design</div>
+        <div class="addon-desc">Print-ready business cards designed to match your brand.</div>
+      </div>
+      <div class="addon">
+        <div class="addon-price">$500</div>
+        <div class="addon-name">Photography Only</div>
+        <div class="addon-desc">Professional on-site photos without the full website package.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proc-top reveal">
+    <div class="sec-label">How It Works</div>
+    <h2>Simple process.<br>Professional result.</h2>
+    <p>From first conversation to live website — here's exactly what to expect.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <span class="step-n">01</span>
+      <div class="step-ico">💬</div>
+      <h3>Free Quote Call</h3>
+      <p>We talk about your business, what you need, and which package makes the most sense. No pressure, no pitch — just a real conversation.</p>
+    </div>
+    <div class="step">
+      <span class="step-n">02</span>
+      <div class="step-ico">🎨</div>
+      <h3>Design & Build</h3>
+      <p>I get to work building your website. You'll see a draft before anything goes live and we refine it until you love it.</p>
+    </div>
+    <div class="step">
+      <span class="step-n">03</span>
+      <div class="step-ico">📸</div>
+      <h3>Content Day (Authority)</h3>
+      <p>For Authority clients, we schedule a 2–4 hour session at your location. We capture team photos, location shots, work photos, and short video clips — everything your website needs.</p>
+    </div>
+    <div class="step">
+      <span class="step-n">04</span>
+      <div class="step-ico">🚀</div>
+      <h3>Launch & Support</h3>
+      <p>Your site goes live. I walk you through everything, hand over full ownership, and stay available for questions and tweaks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-col reveal">
+      <div class="corner-tr"></div>
+      <div class="corner-bl"></div>
+      <div class="about-frame">
+        <img src="eli.png" alt="Eli Kick — Founder, Kickstart Digital">
+      </div>
+      <div class="about-chip">
+        <strong>✈️ ROTC</strong>
+        <span>Air Force Cadet<br>Univ. of South Alabama</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="sec-label">About</div>
+      <h2>Discipline meets digital.</h2>
+      <p>I'm Eli Kick — founder of Kickstart Digital, University of South Alabama student, and Air Force ROTC cadet based right here in Mobile, Alabama.</p>
+      <p>I started this because I kept seeing great local businesses — roofers, landscapers, HVAC companies — lose jobs to competitors who just had a better-looking website. The work wasn't better. The website was. That's a fixable problem.</p>
+      <p>I build websites. That's it. No agency fluff, no vague monthly retainers, no runaround. You get a professional website delivered in one week, you own it outright, and you have my direct line the whole way through.</p>
+      <div class="about-pills">
+        <span class="pill">Univ. of South Alabama</span>
+        <span class="pill">Air Force ROTC</span>
+        <span class="pill">Mobile, Alabama</span>
+        <span class="pill">Websites Only</span>
+      </div>
+      <div class="values">
+        <div class="val"><div class="val-icon">🎯</div><h4>Focused</h4><p>I do one thing — websites. Not ads, not SEO packages, not social media. Just websites, done right.</p></div>
+        <div class="val"><div class="val-icon">⚡</div><h4>Fast</h4><p>7 days from start to launch. No waiting months. You have a business to run.</p></div>
+        <div class="val"><div class="val-icon">🤝</div><h4>Direct</h4><p>You work with me, not a team of strangers. My number, my work, my responsibility.</p></div>
+        <div class="val"><div class="val-icon">✅</div><h4>You Own It</h4><p>100% yours. Domain, hosting, the whole thing. No strings attached, ever.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="reveal">
+    <div class="sec-label">FAQ</div>
+    <h2>Straight answers<br>to common questions.</h2>
+  </div>
+  <div class="faq-grid reveal">
+    <div class="faq-item">
+      <div class="faq-q">How long does it take?</div>
+      <div class="faq-a">7 business days from when we finalize your content and direction. Need it faster? Rush delivery gets it done in 3 days for an additional $250.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I own the website when it's done?</div>
+      <div class="faq-a">Yes — 100%. You own the domain, the hosting account, and the site itself. I hand everything over cleanly when we're done. No monthly fees, no lock-in.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I don't like how it looks?</div>
+      <div class="faq-a">Every package includes revisions. You'll see a draft before anything goes live and we refine it until you're happy. Not satisfied? I'll make it right or refund your deposit.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need to provide photos or content?</div>
+      <div class="faq-a">For Launch and Growth, it helps to have some photos and a basic description of your services — but I can work with what you have. For Authority, we handle all the photos on the content day.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's included in the content day for Authority?</div>
+      <div class="faq-a">We schedule a 2–4 hour session at your location. During that time we shoot everything your website needs — team headshots, location and storefront photos, work-in-progress shots, before/after project photos, and short branded video clips. Everything is delivered ready to use on your website.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What kinds of businesses do you work with?</div>
+      <div class="faq-a">Local service businesses — roofers, HVAC companies, painters, landscapers, remodelers, flooring companies, pressure washing, countertops, cabinets, and similar trades. If you do physical work for local customers, I'm built for you.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do you do ongoing SEO or marketing?</div>
+      <div class="faq-a">I build websites with a solid, search-friendly structure so Google can find and index you properly. I don't offer ongoing SEO management or paid ads — I focus on building you the best website possible.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is the $750 really worth it?</div>
+      <div class="faq-a">For most service businesses, one solid job can more than cover the cost of the website. The goal is to give customers a better first impression and make it easier for them to contact you — that pays off over time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <div class="sec-label">Contact</div>
+      <h2>Let's build<br>something great.</h2>
+      <p>Fill out the form and I'll get back to you within 24 hours to set up a free 15-minute quote call. I'll review your business, recommend the best package, and give you a straight answer on what it would take. No pressure, just a real conversation.</p>
+      <div class="c-cards">
+        <a href="mailto:kickstartdigitalbusiness@gmail.com" class="c-card">
+          <div class="c-ico">📧</div>
+          <div><strong>Email</strong><span>kickstartdigitalbusiness@gmail.com</span></div>
+        </a>
+        <a href="tel:+12055800871" class="c-card">
+          <div class="c-ico">📞</div>
+          <div><strong>Phone</strong><span>(205) 580-0871</span></div>
+        </a>
+      </div>
+      <div class="guarantee-box">
+        <div class="guarantee-icon">🛡️</div>
+        <div class="guarantee-text">
+          <strong>100% Satisfaction Guarantee</strong>
+          <p>Not happy after the first draft? I'll revise it until you are. Clear process, no surprises.</p>
+        </div>
+      </div>
+    </div>
+    <form class="cform reveal" onsubmit="handleSubmit(event)">
+      <div class="frow">
+        <div class="field"><label>First Name</label><input type="text" placeholder="John" required></div>
+        <div class="field"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
+      </div>
+      <div class="field"><label>Email Address</label><input type="email" placeholder="john@yourbusiness.com" required></div>
+      <div class="field"><label>Business Name</label><input type="text" placeholder="Smith Roofing Co."></div>
+      <div class="field"><label>What type of business do you run?</label><input type="text" placeholder="e.g. Roofing, HVAC, Landscaping, Remodeling..."></div>
+      <div class="field">
+        <label>Which package are you interested in?</label>
+        <select>
+          <option value="">Select a package...</option>
+          <option>🚀 Launch Website ($750)</option>
+          <option>📈 Growth Website ($1,500)</option>
+          <option>📸 Authority Website ($3,000)</option>
+          <option>Not sure yet — let's talk</option>
+        </select>
+      </div>
+      <div class="field"><label>Anything else you want me to know?</label><textarea placeholder="Tell me about your business, what you need, or any questions you have..."></textarea></div>
+      <button type="submit" class="f-btn">Send Message — I'll Reply Within 24 Hours →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#home" class="f-logo">Kickstart<span>.</span>Digital</a>
+  <ul class="f-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <small>© 2026 Kickstart Digital — Mobile, AL. Websites for local service businesses.</small>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.2)';ring.style.opacity='0.7';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='0.45';});
+});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-btn');
+  btn.textContent="✓ Sent! I'll be in touch within 24 hours.";
+  btn.style.background='#2a5a2a';btn.style.color='#7ecf7e';
+  setTimeout(()=>{btn.textContent="Send Message — I'll Reply Within 24 Hours →";btn.style.background='';btn.style.color='';e.target.reset();},4000);
+}
+</script>
+</body>
+</html>
